@@ -11,7 +11,8 @@
     "test.unit": "vitest",
     "lint": "eslint",
     "ios": "ionic capacitor run ios -l --external",
-    "android": "ionic capacitor run android -l --external"
+    "android": "ionic capacitor run android -l --external",
+    "android2": "ionic  capacitor run android --target adb-KRON5HSSBQIJ4HUO-9WL1xe._adb-tls-connect._tcp -l --external"
   },
   "dependencies": {
     "@capacitor/android": "5.0.5",
@@ -29,9 +30,11 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^5.3.4",
-    "react-router-dom": "^5.3.4"
+    "react-router-dom": "^5.3.4",
+    "sass": "^1.63.6"
   },
   "devDependencies": {
+    "@capacitor/assets": "^2.0.4",
     "@capacitor/cli": "5.0.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",

@@ -1,0 +1,16 @@
+#splash-screen {
+    background: url('../../assets/images/splash.png') center center no-repeat;
+    background-size: cover;
+    ion-content {
+        --background: none;
+        .container {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img {
+                max-width: 250px;
+            }
+        }
+    }
+}
