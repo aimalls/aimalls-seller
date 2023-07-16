@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">AIMalls</string>
-    <string name="title_activity_main">AIMalls</string>
-    <string name="package_name">app.aimalls.shop</string>
-    <string name="custom_url_scheme">app.aimalls.shop</string>
+    <string name="app_name">AIMalls Seller</string>
+    <string name="title_activity_main">AIMalls Seller</string>
+    <string name="package_name">app.aimalls.seller</string>
+    <string name="custom_url_scheme">app.aimalls.seller</string>
 </resources>

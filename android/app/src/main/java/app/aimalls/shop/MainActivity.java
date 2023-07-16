@@ -1,4 +1,4 @@
-package app.aimalls.shop;
+package app.aimalls.seller;
 
 import com.getcapacitor.BridgeActivity;
 

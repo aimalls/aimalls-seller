@@ -1,0 +1,34 @@
+#login {
+    background: url('../../../assets/images/robot-yellow-circle-bg.png') top right no-repeat, #FFF;
+    background-size: 45%;
+    ion-header {
+        ion-toolbar {
+            --background: 'none';
+        }
+    }
+    ion-content {
+        --background: 'none';
+        
+    }
+    ion-grid {
+        ion-col.page-title {
+            font-size: 35px;
+        }
+        ion-col.form {
+            padding-top: 50px;
+            ion-input {
+                margin: 10px 0px;
+            }
+        }
+        
+        ion-col.form-button {
+            ion-button {
+                --background: var(--ion-color-gradient);
+                span {
+                    font-size: 15px;
+                    color: #FFF;
+                }
+            }
+        }
+    }
+}
