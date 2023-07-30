@@ -14,7 +14,6 @@ export const Dashboard: FC<iProps> = (props): JSX.Element => {
                         </IonButton>
                     </IonMenuToggle>
                     <IonTitle slot="end">
-                        {/* <img src={logoFull} className='logo'  height={50}/> */}
                         PornHub
                     </IonTitle>
                 </IonToolbar>
