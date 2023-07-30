@@ -1,5 +1,5 @@
-import { IonAvatar, IonButton, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonPage, IonRouterOutlet, IonSplitPane, IonTitle, IonToolbar } from "@ionic/react";
-import { bagHandleOutline, heartOutline, home, homeOutline, logOutOutline, mail, menuOutline, peopleOutline, personCircleOutline, receiptOutline } from "ionicons/icons";
+import { IonAvatar, IonButton, IonContent, IonFooter, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonPage, IonRouterOutlet, IonSplitPane, IonTabBar, IonTabButton, IonTitle, IonToolbar } from "@ionic/react";
+import { bagHandleOutline, heartOutline, home, homeOutline, logOutOutline, mail, menuOutline, peopleOutline, personCircleOutline, receiptOutline, statsChart, timerOutline } from "ionicons/icons";
 import { FC } from "react";
 import DashboardRoutes from "../../routes/DashboardRoutes";
 import { processLogoutToAPI } from "../../requests/auth.request";
@@ -35,8 +35,8 @@ export const DashboardLayout: FC<iProps> = (props): JSX.Element => {
                             <img src={avatar} alt="avatar" height={80} width={80} style={{borderRadius: "15px"}} />
                         </IonAvatar>
                         <div style={{paddingBottom: "50px"}}>
-                            <div style={{ fontSize: "15px", color: "#fff", padding: "10px 0", fontFamily: "Poppins-Regular" }}>Hey,</div>
-                            <div style={{ fontSize: "15px", color: "#fff",fontFamily: "Poppins-Regular" }}>Totoy Bibs</div>
+                            <div style={{ fontSize: "15px", color: "#fff", padding: "10px 0", fontFamily: "Poppins-Regular" }}>Hello,</div>
+                            <div style={{ fontSize: "15px", color: "#fff",fontFamily: "Poppins-Regular" }}>AI Malls</div>
                         </div>
                         <IonItem lines="none" routerLink="/dashboard" className={ navigation.location.pathname == "/dashboard" ? "active" : ""}>
                             <IonIcon color={'primary'} icon={homeOutline} slot="start"></IonIcon>
