@@ -1,0 +1,23 @@
+#dashboard {
+    background: rgb(252,154,20);
+background: radial-gradient(circle, rgba(252,154,20,1) 0%, rgba(253,193,110,1) 36%, rgba(255,255,255,1) 92%);
+    ion-header, ion-toolbar {
+        --background: none;
+    }
+    ion-content {
+        --background: none;
+    }
+    ion-avatar {
+        --border-radius: 4px;
+        height: 50px;
+        width: 50px;
+    }
+    ion-tab-bar {
+        ion-tab-button{
+            color: var(--ion-color-primary);
+            &.tab-selected {
+                color: var(--ion-color-primary-shade);
+            }
+        }
+    }
+}

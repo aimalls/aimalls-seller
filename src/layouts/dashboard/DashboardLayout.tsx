@@ -1,5 +1,5 @@
-import { IonButton, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonPage, IonRouterOutlet, IonSplitPane, IonTitle, IonToolbar } from "@ionic/react";
-import { mail, menuOutline } from "ionicons/icons";
+import { IonButton, IonContent, IonFooter, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonPage, IonRouterOutlet, IonSplitPane, IonTabBar, IonTabButton, IonTitle, IonToolbar } from "@ionic/react";
+import { home, mail, menuOutline, personCircleOutline, statsChart, timerOutline } from "ionicons/icons";
 import { FC } from "react";
 import DashboardRoutes from "../../routes/DashboardRoutes";
 import { processLogoutToAPI } from "../../requests/auth.request";
@@ -48,6 +48,7 @@ export const DashboardLayout: FC<iProps> = (props): JSX.Element => {
                 <IonRouterOutlet>
                     <DashboardRoutes />
                 </IonRouterOutlet>
+                
             </IonPage>
         </IonSplitPane>
     )
