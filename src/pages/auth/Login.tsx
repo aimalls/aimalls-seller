@@ -1,22 +1,55 @@
-import { IonPage, IonContent, IonBackButton, IonHeader, IonToolbar, IonTitle, IonButtons, IonGrid, IonCol, IonInput, IonRow, IonButton, IonIcon } from "@ionic/react";
-import { FC } from "react";
+import { IonPage, IonContent, IonBackButton, IonHeader, IonToolbar, IonTitle, IonButtons, IonGrid, IonCol, IonInput, IonRow, IonButton, IonIcon, useIonAlert, useIonLoading } from "@ionic/react";
+import { FC, useState } from "react";
 import { eyeOff, eye, arrowForward } from "ionicons/icons";
 import "../../styles/pages/auth/Login.scss"
+import { iLoginForm, processLoginToAPI } from "../../requests/auth.request";
+import { useLocalStorage } from 'usehooks-ts'
+import { AxiosResponse } from 'axios'
+import { useHistory } from "react-router";
 
 export interface iProps {}
 export const Login: FC<iProps> = (props): JSX.Element => {
+
+    
+    const [presentAlert] = useIonAlert();
+    const [present, dismiss] = useIonLoading();
+    
+    const navigation = useHistory();
+
+    const [loginForm, setLoginForm] = useState<iLoginForm>({
+        email: '',
+        password: '',
+    })
+    const [authToken, setAuthToken] = useLocalStorage<string | AxiosResponse>('authToken', '')
+
+    const handleLoginFormChange = (key: string, value: string) => {
+        setLoginForm((current) => {
+            let curr = {...current};
+
+            curr[key as keyof typeof curr] = value;
+
+            return curr;
+        })
+    }
+
+    const processLogin = async () => {
+        await present();
+        try {
+            const result = await processLoginToAPI(loginForm.email, loginForm.password)
+            setAuthToken(result.data.authToken)
+            navigation.push("/dashboard")
+        } catch (error: any) {
+            presentAlert(error.response.data.error)
+        } finally {
+            await dismiss();
+        }
+    }
+
     return (
         <IonPage id="login">
-            <IonHeader style={{ boxShadow: 'none' }}>
-                <IonToolbar>
-                    <IonButtons slot="start">
-                        <IonBackButton></IonBackButton>
-                    </IonButtons>
-                </IonToolbar>
-            </IonHeader>
             <IonContent fullscreen>
 
-                <IonGrid>
+                <IonGrid style={{ paddingTop: '100px' }}>
                     <IonRow>
                         <IonCol size="6" className="page-title">
                             Login to your Store
@@ -25,14 +58,19 @@ export const Login: FC<iProps> = (props): JSX.Element => {
                             <IonInput
                                 type="email"
                                 label="Business Email"
-                                fill="outline"
+                                fill="solid"
+                                labelPlacement="floating"
+                                value={ loginForm.email }
+                                onIonInput={(e) => handleLoginFormChange("email", e.detail.value!)}
                             />
 
                             <IonInput
                                 type="password"
                                 label="Password"
-                                fill="outline"
+                                fill="solid"
                                 labelPlacement="floating"
+                                value={ loginForm.password }
+                                onIonInput={(e) => handleLoginFormChange("password", e.detail.value!)}
                             >
                             </IonInput>
                         </IonCol>
@@ -42,7 +80,7 @@ export const Login: FC<iProps> = (props): JSX.Element => {
                             </IonButton>
                         </IonCol>
                         <IonCol size="12" className="form-button">
-                            <IonButton size="large" expand="block" shape="round">
+                            <IonButton size="large" expand="block" shape="round" onClick={() => processLogin()}>
                                 <span slot="">Open Store</span>
                             </IonButton>
                         </IonCol>

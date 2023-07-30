@@ -32,3 +32,27 @@
         }
     }
 }
+
+#register-success {
+    // background: url('../../../assets/images/robot-yellow-circle-bg.png') top right no-repeat, #FFF;
+    // background-size: 45%;
+    ion-content {
+        --background: rgb(222,9,4);
+        --background: linear-gradient(41deg, rgba(222,9,4,1) 0%, rgba(252,154,20,1) 85%);
+        ion-grid {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            ion-col.form-button {
+                ion-button {
+                    --background: var(--ion-color-gradient);
+                    span {
+                        color: #FFF;
+                        font-size: 15px;
+                    }
+                }
+            }
+        }
+    }
+}

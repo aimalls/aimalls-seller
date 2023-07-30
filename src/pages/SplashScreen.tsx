@@ -10,7 +10,7 @@ export const SplashScreen: FC = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            navigation.push("/login")
+            navigation.push("/dashboard")
         }, 3000)
     }, [])
 
