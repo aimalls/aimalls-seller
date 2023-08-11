@@ -1,10 +1,12 @@
-import { IonPage, IonContent, IonGrid, IonCol, IonInput, IonRow, IonButton, IonIcon, useIonAlert, useIonLoading } from "@ionic/react";
+import { IonPage, IonContent, IonGrid, IonCol, IonInput, IonRow, IonButton, IonIcon, useIonAlert, useIonLoading, IonHeader, IonToolbar } from "@ionic/react";
 import { FC, useState } from "react";
 import { eyeOff, eye, arrowForward } from "ionicons/icons";
 import "../../styles/pages/auth/Register.scss"
 import { iRegistrationForm, processLegacyRegistrationToAPI } from "../../requests/auth.request";
 import { iError } from "../../interfaces/Errors";
 import { useHistory } from "react-router";
+
+import logoRobot from "../../assets/images/logo-robot.png"
 
 export interface iProps {}
 
@@ -47,11 +49,18 @@ export const Register: FC<iProps> = (props): JSX.Element => {
     return (
         <IonPage id="register">
             <IonContent fullscreen>
-
-                <IonGrid style={{ paddingTop: '100px' }}>
+                <IonHeader>
+                    <IonToolbar>
+                        <IonButton slot="end" fill="clear" routerLink="/login">Log In</IonButton>
+                    </IonToolbar>
+                </IonHeader>
+                <IonGrid style={{ paddingTop: '50px' }}>
                     <IonRow>
+                        <IonCol size="12" className="logo">
+                            <img src={logoRobot} alt="aimalls-robot" height={100} />
+                        </IonCol>
                         <IonCol size="6" className="page-title">
-                            Become a Seller
+                            Sign Up
                         </IonCol> 
                         <IonCol size="12" className="form">
                             <IonInput
@@ -88,7 +97,7 @@ export const Register: FC<iProps> = (props): JSX.Element => {
                             </IonButton>
                         </IonCol>
                         <IonCol size="12" className="form-button">
-                            <IonButton size="large" expand="block" shape="round" onClick={() => processRegistration()}>
+                            <IonButton size="default" expand="block" shape="round" onClick={() => processRegistration()}>
                                 <span slot="">Create Store</span>
                             </IonButton>
                         </IonCol>
