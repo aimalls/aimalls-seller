@@ -7,6 +7,8 @@ import { useLocalStorage } from 'usehooks-ts'
 import { AxiosResponse } from 'axios'
 import { useHistory } from "react-router";
 
+import logoRobot from "../../assets/images/logo-robot.png"
+
 export interface iProps {}
 export const Login: FC<iProps> = (props): JSX.Element => {
 
@@ -47,13 +49,21 @@ export const Login: FC<iProps> = (props): JSX.Element => {
 
     return (
         <IonPage id="login">
+            <IonHeader>
+                    <IonToolbar>
+                        <IonButton slot="end" fill="clear" routerLink="/register">Sign Up</IonButton>
+                    </IonToolbar>
+                </IonHeader>
             <IonContent fullscreen>
 
-                <IonGrid style={{ paddingTop: '100px' }}>
+                <IonGrid style={{ paddingTop: '50px' }}>
                     <IonRow>
-                        <IonCol size="6" className="page-title">
-                            Login to your Store
+                        <IonCol size="12" className="logo">
+                            <img src={logoRobot} alt="aimalls-robot" height={100} />
                         </IonCol>
+                        <IonCol size="6" className="page-title">
+                            Log In
+                        </IonCol> 
                         <IonCol size="12" className="form">
                             <IonInput
                                 type="email"
@@ -76,20 +86,20 @@ export const Login: FC<iProps> = (props): JSX.Element => {
                         </IonCol>
                         <IonCol size="12" style={{ display: 'flex', justifyContent: 'end' }}>
                             <IonButton size="small" fill="clear">Forgot Password?
-                                <IonIcon slot="end" icon={ arrowForward }></IonIcon>
+                                {/* <IonIcon slot="end" icon={ arrowForward }></IonIcon> */}
                             </IonButton>
                         </IonCol>
                         <IonCol size="12" className="form-button">
                             <IonButton size="large" expand="block" shape="round" onClick={() => processLogin()}>
-                                <span slot="">Open Store</span>
+                                <span slot="">Login</span>
                             </IonButton>
                         </IonCol>
-                        <IonCol size="12" className="form-button">
+                        {/* <IonCol size="12" className="form-button">
                             <div style={{ textAlign: 'center', margin: '10px 0px' }}>Don't have store yet? Create now!</div>
                             <IonButton size="large" expand="block" shape="round" routerLink="/register">
                                 <span slot="">Create Store</span>
                             </IonButton>
-                        </IonCol>
+                        </IonCol> */}
                     </IonRow>
                 </IonGrid>
             </IonContent>

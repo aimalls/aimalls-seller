@@ -1,13 +1,13 @@
 import { FC } from "react";
 import { Route } from "react-router";
-import Dashboard from "../pages/dashboard/Dashboard";
+import DashboardV2 from "../pages/dashboard/DashboardV2";
 
 export interface iProps {}
 export const DashboardRoutes: FC<iProps> = (props): JSX.Element => {
     return (
         <>
             <Route exact path="/dashboard">
-                <Dashboard />
+                <DashboardV2 />
             </Route>
         </>
     )

@@ -23,28 +23,29 @@ export const Dashboard: FC<iProps> = (props): JSX.Element => {
             <IonContent fullscreen>
                 Dashboard Content Here..
             </IonContent>
+            
             <IonFooter>
-                    <IonTabBar slot="bottom" style={{ background: "#1E110E"}}>
-                        <IonTabButton tab="dashboard" href="/dashboard" style={{ background: 'transparent' }}>
-                            <IonIcon icon={home} />
-                            <IonLabel>Home</IonLabel>
-                        </IonTabButton>
+                <IonTabBar slot="bottom" style={{ background: "#1E110E"}}>
+                    <IonTabButton tab="dashboard" href="/dashboard" style={{ background: 'transparent' }}>
+                        <IonIcon icon={home} />
+                        <IonLabel>Home</IonLabel>
+                    </IonTabButton>
 
-                        <IonTabButton tab="stats" href="/stats" style={{ background: 'transparent' }}>
-                            <IonIcon icon={statsChart} />
-                            <IonLabel>Stats</IonLabel>
-                        </IonTabButton>
+                    <IonTabButton tab="stats" href="/stats" style={{ background: 'transparent' }}>
+                        <IonIcon icon={statsChart} />
+                        <IonLabel>Stats</IonLabel>
+                    </IonTabButton>
 
-                        <IonTabButton tab="transactions" href="/transactions" style={{ background: 'transparent' }}>
-                            <IonIcon icon={timerOutline} />
-                            <IonLabel>Transactions</IonLabel>
-                        </IonTabButton>
-                        <IonTabButton tab="account" href="/account" style={{ background: 'transparent' }}>
-                            <IonIcon icon={personCircleOutline} />
-                            <IonLabel>Account</IonLabel>
-                        </IonTabButton>
-                    </IonTabBar>
-                </IonFooter>
+                    <IonTabButton tab="transactions" href="/transactions" style={{ background: 'transparent' }}>
+                        <IonIcon icon={timerOutline} />
+                        <IonLabel>Transactions</IonLabel>
+                    </IonTabButton>
+                    <IonTabButton tab="account" href="/account" style={{ background: 'transparent' }}>
+                        <IonIcon icon={personCircleOutline} />
+                        <IonLabel>Account</IonLabel>
+                    </IonTabButton>
+                </IonTabBar>
+            </IonFooter>
         </IonPage>
             
     )
