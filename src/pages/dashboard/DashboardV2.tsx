@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { IonAvatar, IonButton, IonCard, IonCardContent, IonCardHeader, IonCol, IonContent, IonGrid, IonIcon, IonItem, IonLabel, IonPage, IonRow, useIonAlert, useIonLoading } from "@ionic/react";
 import { useHistory } from "react-router";
-export interface iProps {}
+export interface iProps { }
 import "../../styles/pages/dashboard/DashboardV2.scss"
 
 import logoRobot from "../../assets/images/logo-robot.png"
@@ -17,7 +17,7 @@ export const DashboardV2: FC<iProps> = (props): JSX.Element => {
                     <IonRow>
                         <IonCol size="12" style={{ display: 'flex', justifyContent: 'end' }}>
                             <IonButton fill="clear" size="default" color={"light"}>
-                                <IonIcon icon={ notifications } size="large"></IonIcon>
+                                <IonIcon icon={notifications} size="large"></IonIcon>
                             </IonButton>
                         </IonCol>
                         <IonCol size="12">
@@ -32,11 +32,11 @@ export const DashboardV2: FC<iProps> = (props): JSX.Element => {
                                             <div style={{ fontSize: '12px' }}>Followers: 10.2M</div>
                                         </div>
                                     </div>
-                                    
+
                                     <div>
                                         <IonButton color={"dark"} size="small" fill="clear">
                                             <IonLabel slot="start" style={{ fontWeight: 'bold' }}>Edit Profile</IonLabel>
-                                            <IonIcon slot="end" size="small" icon={ pencil }></IonIcon>
+                                            <IonIcon slot="end" size="small" icon={pencil}></IonIcon>
                                         </IonButton>
                                     </div>
                                 </IonCardContent>
@@ -46,12 +46,12 @@ export const DashboardV2: FC<iProps> = (props): JSX.Element => {
                             <IonCard>
                                 <IonCardContent style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                                        <IonIcon color={"primary"} icon={ location } size="large"></IonIcon>
+                                        <IonIcon color={"primary"} icon={location} size="large"></IonIcon>
                                         <IonLabel>Add pick-up Address</IonLabel>
                                     </div>
                                     <div>
                                         <IonButton slot="end">
-                                            <IonIcon icon={ add } color="light"></IonIcon>
+                                            <IonIcon icon={add} color="light"></IonIcon>
                                         </IonButton>
                                     </div>
                                 </IonCardContent>
@@ -59,12 +59,12 @@ export const DashboardV2: FC<iProps> = (props): JSX.Element => {
                             <IonCard>
                                 <IonCardContent style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                                        <IonIcon color={"primary"} icon={ card } size="large"></IonIcon>
+                                        <IonIcon color={"primary"} icon={card} size="large"></IonIcon>
                                         <IonLabel>Add Bank Details</IonLabel>
                                     </div>
                                     <div>
                                         <IonButton slot="end">
-                                            <IonIcon icon={ add } color="light"></IonIcon>
+                                            <IonIcon icon={add} color="light"></IonIcon>
                                         </IonButton>
                                     </div>
                                 </IonCardContent>
@@ -74,11 +74,11 @@ export const DashboardV2: FC<iProps> = (props): JSX.Element => {
                             <IonCard className="ion-padding orders-card">
                                 <div style={{ display: 'flex', justifyContent: "space-between" }}>
                                     <div style={{ display: 'inline-flex' }}>
-                                        <IonIcon icon={ basket } color="primary"></IonIcon>
+                                        <IonIcon icon={basket} color="primary"></IonIcon>
                                         <div style={{ marginLeft: '5px' }}>Orders</div>
                                     </div>
                                     <div>
-                                        <IonIcon icon={ chevronForward }></IonIcon>
+                                        <IonIcon icon={chevronForward}></IonIcon>
                                     </div>
                                 </div>
                                 <IonGrid>
@@ -105,11 +105,11 @@ export const DashboardV2: FC<iProps> = (props): JSX.Element => {
                             <IonCard className="ion-padding orders-card">
                                 <div style={{ display: 'flex', justifyContent: "space-between" }}>
                                     <div style={{ display: 'inline-flex' }}>
-                                        <IonIcon icon={ list } color="primary"></IonIcon>
+                                        <IonIcon icon={list} color="primary"></IonIcon>
                                         <div style={{ marginLeft: '5px' }}>Products</div>
                                     </div>
                                     <div>
-                                        <IonIcon icon={ chevronForward }></IonIcon>
+                                        <IonIcon icon={chevronForward}></IonIcon>
                                     </div>
                                 </div>
                                 <IonGrid>
@@ -134,8 +134,8 @@ export const DashboardV2: FC<iProps> = (props): JSX.Element => {
                                     <IonRow>
                                         <IonCol size="12">
                                             <div style={{ background: '#F0F0F0', height: '1px' }}></div>
-                                            <IonButton fill="clear" size="small">
-                                                <IonIcon slot="start" icon={ addCircleOutline }></IonIcon>
+                                            <IonButton fill="clear" size="small" routerLink="/products/new">
+                                                <IonIcon slot="start" icon={addCircleOutline}></IonIcon>
                                                 <IonLabel>Add Products</IonLabel>
                                             </IonButton>
                                         </IonCol>
@@ -147,22 +147,22 @@ export const DashboardV2: FC<iProps> = (props): JSX.Element => {
                             <IonCard>
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                     <IonButton fill="clear">
-                                        <IonIcon slot="start" icon={ buildOutline } color="primary"></IonIcon>
+                                        <IonIcon slot="start" icon={buildOutline} color="primary"></IonIcon>
                                         <IonLabel slot="end" color={"dark"} style={{ textTransform: "capitalize" }}>Tools</IonLabel>
                                     </IonButton>
                                     <IonButton fill="clear">
-                                        <IonIcon icon={ chevronForward } color="dark" size="small"></IonIcon>
+                                        <IonIcon icon={chevronForward} color="dark" size="small"></IonIcon>
                                     </IonButton>
                                 </div>
                             </IonCard>
                             <IonCard>
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                     <IonButton fill="clear">
-                                        <IonIcon slot="start" icon={ walletOutline } color="primary"></IonIcon>
+                                        <IonIcon slot="start" icon={walletOutline} color="primary"></IonIcon>
                                         <IonLabel slot="end" color={"dark"} style={{ textTransform: "capitalize" }}>Balance</IonLabel>
                                     </IonButton>
                                     <IonButton fill="clear">
-                                        <IonIcon icon={ chevronForward } color="dark" size="small"></IonIcon>
+                                        <IonIcon icon={chevronForward} color="dark" size="small"></IonIcon>
                                     </IonButton>
                                 </div>
                             </IonCard>

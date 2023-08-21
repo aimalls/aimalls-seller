@@ -9,13 +9,13 @@ import { useHistory } from "react-router";
 
 import logoRobot from "../../assets/images/logo-robot.png"
 
-export interface iProps {}
+export interface iProps { }
 export const Login: FC<iProps> = (props): JSX.Element => {
 
-    
+
     const [presentAlert] = useIonAlert();
     const [present, dismiss] = useIonLoading();
-    
+
     const navigation = useHistory();
 
     const [loginForm, setLoginForm] = useState<iLoginForm>({
@@ -26,7 +26,7 @@ export const Login: FC<iProps> = (props): JSX.Element => {
 
     const handleLoginFormChange = (key: string, value: string) => {
         setLoginForm((current) => {
-            let curr = {...current};
+            let curr = { ...current };
 
             curr[key as keyof typeof curr] = value;
 
@@ -41,7 +41,7 @@ export const Login: FC<iProps> = (props): JSX.Element => {
             setAuthToken(result.data.authToken)
             navigation.push("/dashboard")
         } catch (error: any) {
-            presentAlert(error.response.data.error)
+            presentAlert(error)
         } finally {
             await dismiss();
         }
@@ -50,10 +50,10 @@ export const Login: FC<iProps> = (props): JSX.Element => {
     return (
         <IonPage id="login">
             <IonHeader>
-                    <IonToolbar>
-                        <IonButton slot="end" fill="clear" routerLink="/register">Sign Up</IonButton>
-                    </IonToolbar>
-                </IonHeader>
+                <IonToolbar>
+                    <IonButton slot="end" fill="clear" routerLink="/register">Sign Up</IonButton>
+                </IonToolbar>
+            </IonHeader>
             <IonContent fullscreen>
 
                 <IonGrid style={{ paddingTop: '50px' }}>
@@ -63,14 +63,14 @@ export const Login: FC<iProps> = (props): JSX.Element => {
                         </IonCol>
                         <IonCol size="6" className="page-title">
                             Log In
-                        </IonCol> 
+                        </IonCol>
                         <IonCol size="12" className="form">
                             <IonInput
                                 type="email"
                                 label="Business Email"
                                 fill="solid"
                                 labelPlacement="floating"
-                                value={ loginForm.email }
+                                value={loginForm.email}
                                 onIonInput={(e) => handleLoginFormChange("email", e.detail.value!)}
                             />
 
@@ -79,7 +79,7 @@ export const Login: FC<iProps> = (props): JSX.Element => {
                                 label="Password"
                                 fill="solid"
                                 labelPlacement="floating"
-                                value={ loginForm.password }
+                                value={loginForm.password}
                                 onIonInput={(e) => handleLoginFormChange("password", e.detail.value!)}
                             >
                             </IonInput>

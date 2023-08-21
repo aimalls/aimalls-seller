@@ -8,7 +8,7 @@ import { useHistory } from "react-router";
 
 import logoRobot from "../../assets/images/logo-robot.png"
 
-export interface iProps {}
+export interface iProps { }
 
 export const Register: FC<iProps> = (props): JSX.Element => {
 
@@ -26,7 +26,7 @@ export const Register: FC<iProps> = (props): JSX.Element => {
 
     const handleRegistrationFormChange = (key: string, value: string) => {
         setRegistrationForm((current) => {
-            let curr = {...current};
+            let curr = { ...current };
 
             curr[key as keyof typeof curr] = value;
 
@@ -40,7 +40,7 @@ export const Register: FC<iProps> = (props): JSX.Element => {
             const result = await processLegacyRegistrationToAPI(registrationForm)
             navigation.push("/register-success")
         } catch (error: any) {
-            presentAlert(error.message)
+            presentAlert(error)
         } finally {
             await dismiss();
         }
@@ -61,13 +61,13 @@ export const Register: FC<iProps> = (props): JSX.Element => {
                         </IonCol>
                         <IonCol size="6" className="page-title">
                             Sign Up
-                        </IonCol> 
+                        </IonCol>
                         <IonCol size="12" className="form">
                             <IonInput
                                 type="email"
                                 label="Business Email"
                                 fill="solid"
-                                value={ registrationForm.email }
+                                value={registrationForm.email}
                                 labelPlacement="floating"
                                 onIonInput={(e) => handleRegistrationFormChange("email", e.detail.value!)}
                             />
@@ -76,7 +76,7 @@ export const Register: FC<iProps> = (props): JSX.Element => {
                                 type="password"
                                 label="Password"
                                 fill="solid"
-                                value={ registrationForm.password }
+                                value={registrationForm.password}
                                 labelPlacement="floating"
                                 onIonInput={(e) => handleRegistrationFormChange("password", e.detail.value!)}
                             >
@@ -85,7 +85,7 @@ export const Register: FC<iProps> = (props): JSX.Element => {
                                 type="password"
                                 label="Confirm Password"
                                 fill="solid"
-                                value={ registrationForm.confirm_password }
+                                value={registrationForm.confirm_password}
                                 labelPlacement="floating"
                                 onIonInput={(e) => handleRegistrationFormChange("confirm_password", e.detail.value!)}
                             >
@@ -93,7 +93,7 @@ export const Register: FC<iProps> = (props): JSX.Element => {
                         </IonCol>
                         <IonCol size="12" style={{ display: 'flex', justifyContent: 'end' }}>
                             <IonButton size="small" fill="clear" routerLink="/login">Already have store?
-                                <IonIcon slot="end" icon={ arrowForward }></IonIcon>
+                                <IonIcon slot="end" icon={arrowForward}></IonIcon>
                             </IonButton>
                         </IonCol>
                         <IonCol size="12" className="form-button">
