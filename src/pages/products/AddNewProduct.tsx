@@ -1,6 +1,8 @@
-import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonImg, IonPage, IonRow, IonTitle, IonToolbar } from "@ionic/react";
+import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonPage, IonRow, IonTitle, IonToolbar } from "@ionic/react";
 import { FC } from "react";
 import "../../styles/pages/products/AddNewProduct.scss"
+import { image } from "ionicons/icons";
+import ImageUpload from "../../components/ImageUpload";
 
 export const AddNewProduct: FC = () => {
     return (
@@ -16,15 +18,9 @@ export const AddNewProduct: FC = () => {
             </IonHeader>
             <IonContent>
                 <IonCard className="form ion-padding">
-
                     <IonCardTitle>Product Image (1/8)</IonCardTitle>
-                    <IonGrid>
-                        <IonRow>
-                            <IonCol>
-                                <IonImg></IonImg>
-                            </IonCol>
-                        </IonRow>
-                    </IonGrid>
+                    
+                    <ImageUpload />
                 </IonCard>
             </IonContent>
         </IonPage>
