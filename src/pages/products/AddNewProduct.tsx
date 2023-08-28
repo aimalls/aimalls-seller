@@ -1,10 +1,30 @@
-import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonPage, IonRow, IonTitle, IonToolbar } from "@ionic/react";
-import { FC } from "react";
+import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonInput, IonItem, IonLabel, IonList, IonModal, IonPage, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar } from "@ionic/react";
+import { FC, useMemo, useState } from "react";
 import "../../styles/pages/products/AddNewProduct.scss"
-import { image } from "ionicons/icons";
+import { arrowDown, chevronDown, image } from "ionicons/icons";
 import ImageUpload from "../../components/ImageUpload";
+import useProductCategory, { iProductCategoryExtended } from "../../hooks/useProductCategories";
+import ProductCategoryPicker from "../../components/ProductCategoryPicker";
+import { iProductCategory } from "../../requests/product-category.request";
+
+export interface iProductImages {
+    images: File[],
+    thumbs: File[]
+}
 
 export const AddNewProduct: FC = () => {
+
+    const {  productCategories, parentCategories } = useProductCategory();
+
+    const [productImages, setProductImages] = useState<iProductImages>()
+    const [selectedCategory, setSelectedCategory] = useState<iProductCategory | iProductCategoryExtended>()
+
+    
+
+    const handleAddNewProduct = () => {
+        // console.log(selectedCategoryHistory)
+    }
+
     return (
         <IonPage id="add-new-product">
             <IonHeader>
@@ -18,10 +38,52 @@ export const AddNewProduct: FC = () => {
             </IonHeader>
             <IonContent>
                 <IonCard className="form ion-padding">
-                    <IonCardTitle>Product Image (1/8)</IonCardTitle>
-                    
-                    <ImageUpload />
+                    <IonCardTitle>Product Image ({ productImages?.images.length }/8)</IonCardTitle>
+                    <div style={{ marginTop: '10px' }}>
+                    <ImageUpload onChange={(images, thumbs) => setProductImages({images, thumbs})} min={1} max={8} />
+                    </div>
                 </IonCard>
+                <IonCard style={{ padding: '0px 20px' }}>
+                    <IonInput 
+                        type="text" 
+                        label="Product Name" 
+                        labelPlacement="floating" 
+                        placeholder="Input Product Name"
+                        maxlength={255}
+                    ></IonInput>
+                </IonCard>
+                <IonCard style={{ padding: '0px 20px' }}>
+                    <IonInput 
+                        type="text" 
+                        label="Description" 
+                        labelPlacement="floating" 
+                        placeholder="Input product description"
+                        maxlength={255}
+                    ></IonInput>
+                </IonCard>
+                <IonCard style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <ProductCategoryPicker onSelect={(category) => setSelectedCategory(category)} selectedCategory={selectedCategory} />
+                    {/* <ProductCategoryPicker /> */}
+                    {/* { parentCategories ? (
+                        <IonModal isOpen={true}>
+                            <IonList>
+                                { parentCategories.map(category => (
+                                    <IonItem detail>
+                                        { category.name }
+                                    </IonItem>
+                                )) }
+                            </IonList>
+                        </IonModal>
+                    ) : null } */}
+                </IonCard>
+
+                <IonGrid>
+                    <IonRow>
+                        <IonCol size="12">
+                            <IonButton expand="block" onClick={() => handleAddNewProduct()}>Add</IonButton>
+                        </IonCol>
+                    </IonRow>
+                </IonGrid>
             </IonContent>
         </IonPage>
     )
