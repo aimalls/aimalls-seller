@@ -6,22 +6,31 @@ import ImageUpload from "../../components/ImageUpload";
 import useProductCategory, { iProductCategoryExtended } from "../../hooks/useProductCategories";
 import ProductCategoryPicker from "../../components/ProductCategoryPicker";
 import { iProductCategory } from "../../requests/product-category.request";
+import ProductSpecificationSetter from "../../components/ProductSpecificationSetter";
 
 export interface iProductImages {
     images: File[],
     thumbs: File[]
 }
+type spec = { [key: string]: string }
 
 export const AddNewProduct: FC = () => {
 
-    const {  productCategories, parentCategories } = useProductCategory();
+    const { productCategories, parentCategories } = useProductCategory();
 
     const [productImages, setProductImages] = useState<iProductImages>()
     const [selectedCategory, setSelectedCategory] = useState<iProductCategory | iProductCategoryExtended>()
-
+    const [productSpecification, setProductSpecification] = useState<spec>({})
     
 
     const handleAddNewProduct = () => {
+        let params = {
+            images: productImages,
+            selectedCategory,
+            productSpecification
+        }
+
+        console.log(params)
         // console.log(selectedCategoryHistory)
     }
 
@@ -61,20 +70,11 @@ export const AddNewProduct: FC = () => {
                         maxlength={255}
                     ></IonInput>
                 </IonCard>
-                <IonCard style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <IonCard>
                     <ProductCategoryPicker onSelect={(category) => setSelectedCategory(category)} selectedCategory={selectedCategory} />
-                    {/* <ProductCategoryPicker /> */}
-                    {/* { parentCategories ? (
-                        <IonModal isOpen={true}>
-                            <IonList>
-                                { parentCategories.map(category => (
-                                    <IonItem detail>
-                                        { category.name }
-                                    </IonItem>
-                                )) }
-                            </IonList>
-                        </IonModal>
-                    ) : null } */}
+                </IonCard>
+                <IonCard>
+                    <ProductSpecificationSetter onChange={(spec) => setProductSpecification(spec)} productCategory={selectedCategory} />
                 </IonCard>
 
                 <IonGrid>
