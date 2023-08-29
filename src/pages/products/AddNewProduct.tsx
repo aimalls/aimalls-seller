@@ -7,6 +7,7 @@ import useProductCategory, { iProductCategoryExtended } from "../../hooks/usePro
 import ProductCategoryPicker from "../../components/ProductCategoryPicker";
 import { iProductCategory } from "../../requests/product-category.request";
 import ProductSpecificationSetter from "../../components/ProductSpecificationSetter";
+import { SalesInformation } from "./components/SalesInformation";
 
 export interface iProductImages {
     images: File[],
@@ -75,6 +76,9 @@ export const AddNewProduct: FC = () => {
                 </IonCard>
                 <IonCard>
                     <ProductSpecificationSetter onChange={(spec) => setProductSpecification(spec)} productCategory={selectedCategory} />
+                </IonCard>
+                <IonCard>
+                    <SalesInformation />
                 </IonCard>
 
                 <IonGrid>
