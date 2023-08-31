@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 import { image } from "ionicons/icons";
 import { compressor, dataURLtoFile } from "../helpers/imageCompressor";
 export interface iSingleImageUploadProps {
+    value: File | null,
     onChange: (image: File, thumb: File) => void
 }
 interface HTMLInputEvent extends Event {
@@ -15,7 +16,21 @@ type b64 = {
     image: string
 }
 
-export const SingleImageUpload: FC<iSingleImageUploadProps> = ({ onChange }): JSX.Element => {
+
+
+export const SingleImageUpload: FC<iSingleImageUploadProps> = ({ onChange, value }): JSX.Element => {
+
+    const makeid = (length: number) => {
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        let counter = 0;
+        while (counter < length) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+          counter += 1;
+        }
+        return result;
+    }
 
 
     const inputFile = useRef<HTMLInputElement>(null)
@@ -28,8 +43,15 @@ export const SingleImageUpload: FC<iSingleImageUploadProps> = ({ onChange }): JS
     useEffect(() => {
         if (compressedFile && compressedFileThumb) {
             onChange(compressedFile, compressedFileThumb)
+        } else {
+            if (value) {
+                handleSyncImage(value)
+            }
         }
     }, [compressedFile, compressedFileThumb])
+
+
+
    
 
     const handleInputFileChange = async (file?: any) => {
@@ -37,13 +59,19 @@ export const SingleImageUpload: FC<iSingleImageUploadProps> = ({ onChange }): JS
             return 
         }
         
+        const the_file = file.target.files[0]
+        handleSyncImage(the_file)
+    }
+
+    const handleSyncImage = async (the_file: any) => {
+        
+        
 
         setCompressedFile(undefined)
         setCompressedFileThumb(undefined)
         setCompressedFileThumbB64(undefined)
         
 
-        const the_file = file.target.files[0]
 
         await compressor(the_file, false, async function (result: any, file_name: any) {
 
@@ -68,7 +96,7 @@ export const SingleImageUpload: FC<iSingleImageUploadProps> = ({ onChange }): JS
     }
 
     return (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }} key={makeid(7)}>
             <IonButton fill="clear" size="large" className="placeholder-button" onClick={() => inputFile.current?.click()}>
             { compressedFileThumbB64 ? (
                 <img src={compressedFileThumbB64} style={{ height: '50px', width: '50px', border: "thin solid var(--ion-color-primary)", objectFit: 'contain', marginRight: '5px' }} />

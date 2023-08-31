@@ -11,16 +11,32 @@ interface iVariationFormProps {
     index: number,
     onRemove: () => void,
     onOptionAdd: () => void,
+    onOptionRemove: (optionId: string) => void
 }
 
-const VariationForm: FC<iVariationFormProps> = ({variationProp, onVariationChange, index, onRemove, onOptionAdd}) => {
+const VariationForm: FC<iVariationFormProps> = ({variationProp, onVariationChange, index, onRemove, onOptionAdd, onOptionRemove}) => {
 
     const [variation, setVariation] = useState<iVariation>(variationProp)
+
+    const makeid = (length: number) => {
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        let counter = 0;
+        while (counter < length) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+          counter += 1;
+        }
+        return result;
+    }
+
     
     const variationDefault = {
+        id: makeid(5),
         name: '',
         options: [
             {
+                id: makeid(7),
                 name: '',
                 image: null,
                 price: null,
@@ -54,23 +70,8 @@ const VariationForm: FC<iVariationFormProps> = ({variationProp, onVariationChang
         })
     }
 
-    const handleOptionRemove = (optionIndex: number) => {
-
-        if (variation.options.length <= 1) {
-            setVariation((current) => {
-                let curr = {...current };
-                let newOptions = [variationDefault.options[0]]
-                curr.options = newOptions;
-                return curr;
-            })
-            return
-        }
-
-        setVariation(current => {
-            let curr = { ...current };
-            curr.options = curr.options.filter((v, i) => i !== optionIndex)
-            return curr;
-        })
+    const handleOptionRemove = (optionId: string) => {
+        onOptionRemove(optionId)
     }
 
     return (
@@ -92,12 +93,13 @@ const VariationForm: FC<iVariationFormProps> = ({variationProp, onVariationChang
                     fill="solid"
                     onIonChange={({detail}) => hanldeVariationChange("name", detail.value!)}
                 ></IonInput>
+                {/* { JSON.stringify(variation.options) } */}
                 {variation.options.map((option, optionIndex) => (
                     <VariationOption 
                         key={`variation-option-${optionIndex}`} 
                         option={option} 
                         index={optionIndex}
-                        onOptionRemove={(optionIndex) => handleOptionRemove(optionIndex)}
+                        onOptionRemove={(optionIndex) => handleOptionRemove(option.id)}
                         onChange={(option, index) => handleVariationOptionChange(option, index)}
                     />
                 ))}

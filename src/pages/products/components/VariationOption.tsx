@@ -17,8 +17,6 @@ export const VariationOption: FC<iVariationOptionProps> = ({ option, index, onOp
 
     const [vOption, setVOption] = useState<iVariationOption>(option)
 
-    
-
     useEffect(() => {
         onChange(vOption, index)
     }, [vOption])
@@ -37,18 +35,18 @@ export const VariationOption: FC<iVariationOptionProps> = ({ option, index, onOp
     }
 
     return (
-        <div style={{ marginTop: '10px' }}>
+        <div style={{ marginTop: '10px' }} key={option.id}>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div>Option {index + 1}</div>
                 <IonButton fill="clear" size="small" onClick={() => handleOptionRemove()}>
                     <IonIcon icon={ close }></IonIcon>
                 </IonButton>
             </div>
-            <SingleImageUpload onChange={(image) => handleOptionChange("image", image)} />
+            <SingleImageUpload value={option.image} key={option.id} onChange={(image) => handleOptionChange("image", image)} />
             <IonInput
                 type="text"
                 label="Option Name"
-                value={vOption.name}
+                value={option.name}
                 placeholder="Input Price"
                 labelPlacement="floating"
                 fill="solid"
@@ -58,7 +56,7 @@ export const VariationOption: FC<iVariationOptionProps> = ({ option, index, onOp
             <IonInput
                 type="number"
                 label="Price *"
-                value={vOption.price}
+                value={option.price}
                 placeholder="Input Price"
                 labelPlacement="floating"
                 fill="solid"
@@ -68,7 +66,7 @@ export const VariationOption: FC<iVariationOptionProps> = ({ option, index, onOp
             <IonInput
                 type="number"
                 label="Stock *"
-                value={vOption.stock}
+                value={option.stock}
                 placeholder="Input Stock"
                 labelPlacement="floating"
                 fill="solid"
@@ -78,7 +76,7 @@ export const VariationOption: FC<iVariationOptionProps> = ({ option, index, onOp
             <IonInput
                 type="text"
                 label="SKU"
-                value={vOption.sku}
+                value={option.sku}
                 placeholder="Input SKU"
                 labelPlacement="floating"
                 fill="solid"

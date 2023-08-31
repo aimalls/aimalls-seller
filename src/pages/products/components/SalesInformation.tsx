@@ -10,11 +10,13 @@ interface iSalesInformationProps {
 }
 
 export interface iVariation {
+    id: string,
     name: string,
     options: iVariationOption[],
 }
 
 export interface iVariationOption {
+    id: string,
     name: string
     image: File | null,
     price: string | null,
@@ -30,11 +32,24 @@ export const SalesInformation: FC<iSalesInformationProps> = () => {
 
     const [variations, setVariations] = useState<iVariation[]>([])
 
+    const makeid = (length: number) => {
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        let counter = 0;
+        while (counter < length) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+          counter += 1;
+        }
+        return result;
+    }
 
     const variationDefault = {
+        id: makeid(5),
         name: '',
         options: [
             {
+                id: makeid(7),
                 name: '',
                 image: null,
                 price: null,
@@ -59,21 +74,19 @@ export const SalesInformation: FC<iSalesInformationProps> = () => {
 
     const handleAddMoreVariation = () => {
         setVariations(current => {
-            
             return [...current, variationDefault]
             
         })
     }
 
-    const handleRemoveVariation = (index: number) => {
-        if (variations.length <= 1) {
-            setVariations([variationDefault])
-            return
-        }
+    const handleRemoveVariation = (variationIndex: number) => {
+        const newVariation = variations.filter((v, i) => i !== variationIndex);
         setVariations((current) => {
-            let curr = [...current]
-            curr.splice(index, 1)
-            return curr;
+            if (newVariation.length !== 0) {
+                return newVariation;
+            } else {
+                return [variationDefault]
+            }
         })
     }
 
@@ -84,40 +97,78 @@ export const SalesInformation: FC<iSalesInformationProps> = () => {
         setVariations((current) => {
             let curr = [...current];
             let currentOptions = current[index].options;
-            let newOptions = [...currentOptions, variationDefault.options[0]]
-            current[index].options = newOptions;
+            const newOption = {
+                    id: makeid(7),
+                    name: '',
+                    image: null,
+                    price: null,
+                    stock: null,
+                    sku: ''
+            }
+            let newOptions = [...currentOptions, newOption]
+            
+            curr[index].options = newOptions;
             return curr;
         })
     }, []);
 
-    const handleVariationOptionRemove = (variationIndex: number, optionIndex: number) => {
-        
+    const handleVariationOptionRemove = (variationIndex: number, optionId: string) => {
+
         if (variations[variationIndex].options.length <= 1) {
+            const newOption = {
+                id: makeid(7),
+                name: '',
+                image: null,
+                price: null,
+                stock: null,
+                sku: ''
+            }
             setVariations((current) => {
-                let curr = [...current];
-                let newOptions = [variationDefault.options[0]]
+                let curr = [...current ];
+                let newOptions = [newOption]
                 curr[variationIndex].options = newOptions;
                 return curr;
             })
             return
         }
 
+        
 
-        setVariations((current) => {
-            let curr = [...current];
-            curr[variationIndex].options.splice(optionIndex, 1);
+        let newOptions = variations[variationIndex].options.filter((v, i) => v.id !== optionId)
+        setVariations(current => {
+            let curr = [...current ];
+            curr[variationIndex].options = newOptions;
             return curr;
         })
+
+        
+        // if (variations[variationIndex].options.length <= 1) {
+        //     setVariations((current) => {
+        //         let curr = [...current];
+        //         let newOptions = [variationDefault.options[0]]
+        //         curr[variationIndex].options = newOptions;
+        //         return curr;
+        //     })
+        //     return
+        // }
+
+        // setVariations((current) => {
+        //     let curr = [...current];
+        //     curr[variationIndex].options.splice(optionIndex, 1);
+        //     return curr;
+        // })
     }
 
     const handleVariationChange = (variation: iVariation, variationIndex: number) => {
-        console.log(variation)
         setVariations((current) => {
             let curr = [...current];
             curr[variationIndex] = variation;
             return curr;
         })
     }
+
+    
+    
 
     
 
@@ -156,13 +207,14 @@ export const SalesInformation: FC<iSalesInformationProps> = () => {
                                     <IonCol size="12">
                                         
                                         { variations.map((variation, index) => (
-                                            <div key={`variation-${index}`}>
+                                            <div key={`variation-${variation.id}`}>
                                                 <VariationForm 
                                                     variationProp={variation} 
                                                     onVariationChange={(variation) => handleVariationChange(variation, index)} 
                                                     index={index}
                                                     onRemove={() => handleRemoveVariation(index)}
                                                     onOptionAdd={() => handleVariationOptionAdd(index)}
+                                                    onOptionRemove={(optionId) => handleVariationOptionRemove(index, optionId)}
                                                 />
                                             </div>
                                         )) }
