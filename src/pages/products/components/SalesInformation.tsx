@@ -3,10 +3,11 @@ import "../../../styles/pages/products/components/SalesInformation.scss"
 import { IonButton, IonLabel, IonIcon, IonModal, IonHeader, IonToolbar, IonTitle, IonContent, IonSelect, IonSelectOption, IonGrid, IonRow, IonCol, IonItem, IonToggle, IonInput } from "@ionic/react"
 import { chevronDown } from "ionicons/icons"
 import VariationForm from "./ProductVariationForm"
+import { ProductWholesalePriceTierForm } from "./ProductWholesalePriceTierForm"
 
 
 interface iSalesInformationProps {
-
+    onDone: (price: string, stock: string, variations?: iVariation[], productWholeSalePriceTiers?: iProductWholeSalePriceTier[] ) => void
 }
 
 export interface iVariation {
@@ -24,13 +25,24 @@ export interface iVariationOption {
     sku: string
 }
 
-export const SalesInformation: FC<iSalesInformationProps> = () => {
+export interface iProductWholeSalePriceTier {
+    id: string,
+    minQty: string | null,
+    maxQty: string | null,
+    price: string | null
+}
+
+
+export const SalesInformation: FC<iSalesInformationProps> = ({ onDone }) => {
 
     const [isSalesInfoDialogOpen, setIsSalesInfoDialogOpen] = useState(false);
     const [variationsEnabled, setVariationsEnabled] = useState(false);
     const [wholeSalePriceEnabled, setWholeSalePriceEnabled] = useState(false);
 
     const [variations, setVariations] = useState<iVariation[]>([])
+
+    const [productPrice, setProductPrice] = useState<string>("")
+    const [productStock, setProductStock] = useState<string>("")
 
     const makeid = (length: number) => {
         let result = '';
@@ -68,6 +80,8 @@ export const SalesInformation: FC<iSalesInformationProps> = () => {
             })
         } else {
             setVariations([])
+            setProductPrice("")
+            setProductStock("")
         }
     }, [variationsEnabled])
 
@@ -140,23 +154,6 @@ export const SalesInformation: FC<iSalesInformationProps> = () => {
             curr[variationIndex].options = newOptions;
             return curr;
         })
-
-        
-        // if (variations[variationIndex].options.length <= 1) {
-        //     setVariations((current) => {
-        //         let curr = [...current];
-        //         let newOptions = [variationDefault.options[0]]
-        //         curr[variationIndex].options = newOptions;
-        //         return curr;
-        //     })
-        //     return
-        // }
-
-        // setVariations((current) => {
-        //     let curr = [...current];
-        //     curr[variationIndex].options.splice(optionIndex, 1);
-        //     return curr;
-        // })
     }
 
     const handleVariationChange = (variation: iVariation, variationIndex: number) => {
@@ -167,8 +164,81 @@ export const SalesInformation: FC<iSalesInformationProps> = () => {
         })
     }
 
-    
-    
+    const handleVariationReset = () => {
+        setVariations([variationDefault])
+        setProductWholesalePriceTiers([{
+            id: makeid(5),
+            minQty: null,
+            maxQty: null,
+            price: null
+        }])
+        setVariationsEnabled(false)
+        setWholeSalePriceEnabled(false)
+    }
+
+
+
+
+    const productWholesaleTierDefault = {
+        id: makeid(5),
+        minQty: null,
+        maxQty: null,
+        price: null
+    }
+
+    useEffect(() => {
+        if (!wholeSalePriceEnabled) {
+            setProductWholesalePriceTiers([])
+        }
+    }, [wholeSalePriceEnabled])
+
+    const [productWholesalePriceTiers, setProductWholesalePriceTiers] = useState<iProductWholeSalePriceTier[]>([productWholesaleTierDefault])
+
+
+    const handleAddMoreWholesaleTier = () => {
+        setProductWholesalePriceTiers([
+            ...productWholesalePriceTiers,
+            {
+                id: makeid(5),
+                minQty: null,
+                maxQty: null,
+                price: null
+            }
+        ])
+    }
+
+    const handleProductWholesaleTierRemove = (id: string) => {
+        
+        if (productWholesalePriceTiers.length <= 1) {
+            setProductWholesalePriceTiers([
+                {
+                    id: makeid(5),
+                    minQty: null,
+                    maxQty: null,
+                    price: null
+                }
+            ])
+            return
+        }
+
+        const newProductWholesaleTiers = productWholesalePriceTiers.filter(v => v.id !== id);
+        setProductWholesalePriceTiers(newProductWholesaleTiers)
+    }
+
+    const handleProductWholeSaleTier = (productWholeSaleTier: iProductWholeSalePriceTier, index: number) => {
+        setProductWholesalePriceTiers(current => {
+            let curr = [...current];
+            curr[index] = productWholeSaleTier;
+            return curr;
+        })
+    }
+
+    const handleSalesInfoDone = () => {
+        onDone(productPrice, productStock, variations, productWholesalePriceTiers)
+        setIsSalesInfoDialogOpen(false)
+    }
+
+
 
     
 
@@ -183,9 +253,9 @@ export const SalesInformation: FC<iSalesInformationProps> = () => {
             <IonModal isOpen={ isSalesInfoDialogOpen }>
                 <IonHeader style={{ boxShadow: 'none' }}>
                     <IonToolbar>
-                        <IonButton slot="start" fill="clear" onClick={() => {}}>Reset</IonButton>
-                        <IonTitle>Set Specifications</IonTitle>
-                        <IonButton slot="end" fill="clear" onClick={() => {}}>Done</IonButton>
+                        <IonButton slot="start" fill="clear" onClick={() => handleVariationReset()}>Reset</IonButton>
+                        <IonTitle>Set Sales Info.</IonTitle>
+                        <IonButton slot="end" fill="clear" onClick={() => handleSalesInfoDone()}>Done</IonButton>
                     </IonToolbar>
                 </IonHeader>
                 <IonContent>
@@ -230,12 +300,14 @@ export const SalesInformation: FC<iSalesInformationProps> = () => {
                                             labelPlacement="floating"
                                             fill="solid"
                                             style={{ marginBottom: '10px' }}
+                                            onIonInput={({detail}) => setProductPrice(detail.value!)}
                                         ></IonInput>
                                         <IonInput
                                             type="number"
                                             label="Stock *"
                                             labelPlacement="floating"
                                             fill="solid"
+                                            onIonInput={({detail}) => setProductStock(detail.value!)}
                                         ></IonInput>
                                     
                                     </IonCol>
@@ -249,7 +321,18 @@ export const SalesInformation: FC<iSalesInformationProps> = () => {
 
                             { wholeSalePriceEnabled ? (
                                 <IonCol size="12">
-                                    asd
+                                    { productWholesalePriceTiers.map((productWholeSaleTier, index) => (
+                                        <ProductWholesalePriceTierForm 
+                                            productWholeSaleTier={productWholeSaleTier}
+                                            index={index}
+                                            key={productWholeSaleTier.id}
+                                            onRemove={(id) => handleProductWholesaleTierRemove(id)}
+                                            onChange={(productWholeSaleTier) => handleProductWholeSaleTier(productWholeSaleTier, index)}
+                                        />
+                                    )) }
+                                    <IonButton fill="clear" expand="block"
+                                            onClick={() => handleAddMoreWholesaleTier()}
+                                        >Add More Wholesale Tier</IonButton>
                                 </IonCol>
                             ) : null}
                         </IonRow>

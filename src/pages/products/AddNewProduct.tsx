@@ -7,13 +7,20 @@ import useProductCategory, { iProductCategoryExtended } from "../../hooks/usePro
 import ProductCategoryPicker from "../../components/ProductCategoryPicker";
 import { iProductCategory } from "../../requests/product-category.request";
 import ProductSpecificationSetter from "../../components/ProductSpecificationSetter";
-import { SalesInformation } from "./components/SalesInformation";
+import { SalesInformation, iProductWholeSalePriceTier, iVariation } from "./components/SalesInformation";
 
 export interface iProductImages {
     images: File[],
     thumbs: File[]
 }
 type spec = { [key: string]: string }
+
+export interface iProductSalesInfo {
+    price: string,
+    stock: string,
+    variations: iVariation[] | undefined,
+    productWholeSalePriceTiers: iProductWholeSalePriceTier[] | undefined
+}
 
 export const AddNewProduct: FC = () => {
 
@@ -22,17 +29,24 @@ export const AddNewProduct: FC = () => {
     const [productImages, setProductImages] = useState<iProductImages>()
     const [selectedCategory, setSelectedCategory] = useState<iProductCategory | iProductCategoryExtended>()
     const [productSpecification, setProductSpecification] = useState<spec>({})
+    const [productSalesInfo, setProductSalesInfo] = useState<iProductSalesInfo>()
     
 
     const handleAddNewProduct = () => {
         let params = {
             images: productImages,
             selectedCategory,
-            productSpecification
+            productSpecification,
+            productSalesInfo
         }
 
         console.log(params)
         // console.log(selectedCategoryHistory)
+    }
+
+    const handleSalesInfoDone = (salesInfo: iProductSalesInfo) => {
+        console.log(salesInfo)
+        setProductSalesInfo(salesInfo)
     }
 
     return (
@@ -78,7 +92,9 @@ export const AddNewProduct: FC = () => {
                     <ProductSpecificationSetter onChange={(spec) => setProductSpecification(spec)} productCategory={selectedCategory} />
                 </IonCard>
                 <IonCard>
-                    <SalesInformation />
+                    <SalesInformation onDone={(price, stock, variations, productWholeSalePriceTiers) => handleSalesInfoDone({
+                        price, stock, variations, productWholeSalePriceTiers
+                    })} />
                 </IonCard>
 
                 <IonGrid>
