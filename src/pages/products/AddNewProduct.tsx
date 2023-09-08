@@ -8,6 +8,8 @@ import ProductCategoryPicker from "../../components/ProductCategoryPicker";
 import { iProductCategory } from "../../requests/product-category.request";
 import ProductSpecificationSetter from "../../components/ProductSpecificationSetter";
 import { SalesInformation, iProductWholeSalePriceTier, iVariation } from "./components/SalesInformation";
+import { ShippingInfo } from "./components/ShippingInfo";
+import { OtherProductInfo } from "./components/OtherProductInfo";
 
 export interface iProductImages {
     images: File[],
@@ -95,6 +97,12 @@ export const AddNewProduct: FC = () => {
                     <SalesInformation onDone={(price, stock, variations, productWholeSalePriceTiers) => handleSalesInfoDone({
                         price, stock, variations, productWholeSalePriceTiers
                     })} />
+                </IonCard>
+                <IonCard>
+                    <ShippingInfo />
+                </IonCard>
+                <IonCard>
+                    <OtherProductInfo />
                 </IonCard>
 
                 <IonGrid>
